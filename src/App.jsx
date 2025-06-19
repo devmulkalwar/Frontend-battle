@@ -172,7 +172,7 @@ const App = () => {
     <div className={darkMode ? 'dark' : ''}>
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <div className="pt-16"> {/* Add padding-top to account for fixed navbar */}
+        <div className="pt-20"> {/* Increased padding-top from 16 to 20 */}
           <section id="brand-kits">
             <BrandKitsCard/>
           </section>

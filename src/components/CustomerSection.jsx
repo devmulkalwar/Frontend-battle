@@ -1,150 +1,189 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CustomerSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Mock customer logos data with SVG placeholders
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   const customers = [
     {
+      name: 'Perplexity',
+      id: 'perplexity',
+      logo: (
+        <div className="flex items-center gap-2 group-hover:scale-105 transition-transform duration-300">
+          <div className="w-7 h-7 bg-white dark:bg-gray-100 rounded-md flex items-center justify-center shadow-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" className="text-black">
+              <path
+                fill="currentColor"
+                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <span className="text-gray-800 dark:text-gray-200 font-medium text-lg tracking-wide">
+            perplexity
+          </span>
+        </div>
+      )
+    },
+    {
       name: 'Supercell',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5TdXBlcmNlbGw8L3RleHQ+Cjwvc3ZnPgo=',
-      alt: 'Supercell logo'
+      id: 'supercell',
+      logo: (
+        <div className="text-gray-800 dark:text-white font-bold text-xl group-hover:scale-105 transition-transform duration-300">
+          <div className="flex flex-col items-center">
+            <span className="bg-gray-800 dark:bg-white text-white dark:text-black px-3 py-1 rounded text-sm font-black tracking-wider">
+              SUP
+            </span>
+            <span className="text-gray-800 dark:text-white font-black tracking-wider text-sm">
+              ERCELL
+            </span>
+          </div>
+        </div>
+      )
     },
     {
       name: 'Monzo',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5Nb256bzwvdGV4dD4KPC9zdmc+Cg==',
-      alt: 'Monzo logo'
+      id: 'monzo',
+      logo: (
+        <div className="text-gray-800 dark:text-white font-light text-2xl tracking-wider group-hover:scale-105 transition-transform duration-300">
+          monzo
+        </div>
+      )
     },
     {
       name: 'Raycast',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5SYXljYXN0PC90ZXh0Pgo8L3N2Zz4K',
-      alt: 'Raycast logo'
-    },
-    {
-      name: 'Mercury',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5NZXJJY3J5PC90ZXh0Pgo8L3N2Zz4K',
-      alt: 'Mercury logo'
-    },
-    {
-      name: 'Perplexity',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5QZXJwbGV4aXR5PC90ZXh0Pgo8L3N2Zz4K',
-      alt: 'Perplexity logo'
+      id: 'raycast',
+      logo: (
+        <div className="flex items-center gap-3 group-hover:scale-105 transition-transform duration-300">
+          <div className="w-7 h-7 bg-gradient-to-br from-red-500 to-orange-500 rounded-lg flex items-center justify-center shadow-lg">
+            <div className="w-3 h-3 bg-white rounded-sm transform rotate-45"></div>
+          </div>
+          <span className="text-gray-800 dark:text-gray-200 font-medium text-lg">
+            Raycast
+          </span>
+        </div>
+      )
     },
     {
       name: 'Retool',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5SZXRvb2w8L3RleHQ+Cjwvc3ZnPgo=',
-      alt: 'Retool logo'
+      id: 'retool',
+      logo: (
+        <div className="flex items-center gap-3 group-hover:scale-105 transition-transform duration-300">
+          <div className="w-7 h-7 bg-orange-500 rounded-lg flex items-center justify-center shadow-lg">
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-white">
+              <path
+                fill="currentColor"
+                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+              />
+            </svg>
+          </div>
+          <span className="text-gray-800 dark:text-gray-200 font-medium text-lg">
+            Retool
+          </span>
+        </div>
+      )
     },
     {
-      name: 'Linear',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5MaW5lYXI8L3RleHQ+Cjwvc3ZnPgo=',
-      alt: 'Linear logo'
-    },
-    {
-      name: 'Notion',
-      logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8dGV4dCB4PSI2MCIgeT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5Ob3Rpb248L3RleHQ+Cjwvc3ZnPgo=',
-      alt: 'Notion logo'
+      name: 'Mercury',
+      id: 'mercury',
+      logo: (
+        <div className="flex items-center gap-3 group-hover:scale-105 transition-transform duration-300">
+          <div className="w-7 h-7 bg-gray-400 dark:bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-3 h-3 bg-gray-600 dark:bg-gray-300 rounded-full"></div>
+          </div>
+          <span className="text-gray-600 dark:text-gray-300 font-medium text-lg tracking-widest">
+            MERCURY
+          </span>
+        </div>
+      )
     }
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20,
-      scale: 0.9
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
-    <section className="bg-zinc-900 py-16 px-4 sm:px-6 lg:px-8">
+    <section 
+      className="py-16 px-4 bg-white dark:bg-gray-900 transition-colors duration-500"
+      aria-label="Trusted by leading companies"
+    >
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Optional Section Header */}
         <div className="text-center mb-12">
-          <motion.h2 
-            className="text-white text-3xl md:text-4xl font-semibold mb-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            Trusted by the best
-          </motion.h2>
-          <motion.p 
-            className="text-gray-400 text-lg"
-            initial={{ opacity: 0, y: -10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          >
-            Our Customers
-          </motion.p>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+            Trusted by
+          </h2>
         </div>
 
-        {/* Customer Logos Grid */}
-        <motion.div 
-          ref={ref}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 md:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
+        {/* Logos Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-16">
           {customers.map((customer, index) => (
-            <motion.div
-              key={customer.name}
-              className="group"
-              variants={itemVariants}
+            <div
+              key={customer.id}
+              className={`
+                group flex items-center justify-center min-h-[80px] p-4
+                hover:bg-gray-50 dark:hover:bg-gray-800 
+                rounded-xl transition-all duration-300 cursor-pointer
+                transform hover:scale-105 hover:shadow-lg
+                ${isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+                }
+              `}
+              style={{
+                transitionDelay: `${index * 100}ms`,
+                transitionDuration: '600ms'
+              }}
+              role="img"
+              aria-label={`${customer.name} logo`}
             >
-              <div className="card bg-zinc-800/50 hover:bg-zinc-800/80 transition-all duration-300 p-6 rounded-lg shadow-xl hover:shadow-2xl border border-zinc-700/50 hover:border-zinc-600/50">
-                <div className="flex items-center justify-center h-12">
-                  <img
-                    src={customer.logo}
-                    alt={customer.alt}
-                    className="h-full w-auto max-w-full object-contain mx-auto filter grayscale hover:grayscale-0 hover:brightness-125 transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
+              <div className="flex items-center justify-center w-full max-w-[200px]">
+                {customer.logo}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Optional CTA */}
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-        >
-          <button className="btn btn-primary btn-lg hover:scale-105 transition-transform duration-200">
-            Join our customers
-          </button>
-        </motion.div>
+        {/* Optional Stats or CTA */}
+        <div className="text-center mt-16">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Join thousands of companies that trust our platform
+          </p>
+        </div>
       </div>
+
+      {/* Custom CSS for additional animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-5px); }
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+      `}</style>
     </section>
   );
 };
 
 export default CustomerSection;
-

@@ -8,7 +8,7 @@ const TestimonialSection = () => {
       id: 1,
       name: "Sarah Johnson",
       role: "Verified Buyer",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       review: "Absolutely love this product! The quality exceeded my expectations and the customer service was outstanding. Highly recommend to anyone looking for premium quality.",
       rating: 5,
       product: "Premium Wireless Headphones"
@@ -195,23 +195,6 @@ const TestimonialSection = () => {
           </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <div className="stats stats-horizontal shadow bg-base-100 dark:bg-gray-800">
-            <div className="stat">
-              <div className="stat-title text-base-content/60 dark:text-gray-400">Happy Customers</div>
-              <div className="stat-value text-primary">10K+</div>
-            </div>
-            <div className="stat">
-              <div className="stat-title text-base-content/60 dark:text-gray-400">Average Rating</div>
-              <div className="stat-value text-primary">4.9/5</div>
-            </div>
-            <div className="stat">
-              <div className="stat-title text-base-content/60 dark:text-gray-400">Reviews</div>
-              <div className="stat-value text-primary">2,500+</div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Custom CSS for animations */}
