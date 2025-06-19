@@ -31,7 +31,7 @@ const BrandKitsCard = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 rounded-2xl my-16">
+    <div className="w-full max-w-md mx-auto p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 rounded-2xl my-16 ">
       <div className="bg-zinc-900 rounded-2xl p-6 shadow-xl">
         <h2 className="text-white text-lg font-semibold mb-4">Brand Kits</h2>
         
