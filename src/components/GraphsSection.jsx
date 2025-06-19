@@ -89,7 +89,7 @@ const EmbodiedCarbonGraph = () => {
             {/* Type Filters */}
             <div className="mb-6">
               <span className="text-sm text-gray-600 mb-3 block font-medium">Type</span>
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-wrap">
                 {['Refurbishment', 'New build', 'All'].map((type) => (
                   <button
                     key={type}
